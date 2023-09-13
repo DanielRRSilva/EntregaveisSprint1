@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card1">
+            <label for="prodVinho">Informe a quantidade de vinho produzida (Em Litros): <input type="number" id="prodVinho" class="input"></label><br><br>
+            <label for="lucroMensal">Informe a média de lucro mensal: <input type="number" id="lucroMensal" class="input"></label><br><br>
+            <label for="areaArmazem">Informe a área do seu armazem (Em m<sup>2</sup>): <input type="number" id="areaArmazem" class="input"></label><br><br>
+            <label for="servidorEmpresa">Sua propriedade possui algum servidor? (Computador) <input type="text" id="servidorEmpresa"></label><br><br>
+            <button onclick="calcOrcamento()" class="botao">Calcular Orçamento</button><br><br>
+        </div>
+        <div id="exibirOrcamento" class="card2"></div>
+    </div>
+</body>
+</html>
+
+<script>
+    function calcOrcamento () {
+        var vinho = Number(prodVinho.value)
+        var lucro = Number(lucroMensal.value)
+        var area = Number(areaArmazem.value)
+        var servidor = servidorEmpresa.value
+        var numeroSensores = area / 5
+        var perda = vinho * 0.15
+        var vinhoVendido = vinho - perda
+        var semPerda = vinho*lucro/vinhoVendido
+        var perdaDinheiro = semPerda - lucro
+        var valorInstalacao = 500
+        var valorTotalSensor = numeroSensores * 25
+        var valorNuvem = 300
+        var valorManutencao = 50
+
+        if (servidor =="") {
+            alert(`O campo do servidor é obrigatório!!`)
+        }
+        if (servidor !="Sim" && servidor != "Não") {
+            alert(`Favor preencher corretamente as informações!!`)
+        }
+
+        if (servidor == "Não" && valorTotalSensor < valorInstalacao) {
+            exibirOrcamento.innerHTML = 
+            `
+            <p>Conforme foi informado a sua produção de vinho mensal é de ${vinho} litros, e o seu lucro mensal é de R$${lucro}. A média mensal de perda de vinho causada por falta de controle de temperatura é cerda de 15%, o que para o senhor significa uma perda de aproximadamente ${perda} litros. Esses litros perdidos representam aproximadamente R$${Math.round(perdaDinheiro)}, por tanto seu lucro total poderia ser de R$${Math.round(semPerda)}.<br><br>
+            Para a inplementação dos nossos serviços o valor cobrado é de R$${valorInstalacao+valorTotalSensor+valorManutencao}, onde o cliente paga pelos sensores, no seu caso sendo ${numeroSensores} sensores, pela instalação, manutenção e pelo serviço em nuvem.<br><br>
+            Com a nossa solução o senhor pode reduzir em até 60% a suas perdas, o que representa aproximadamente ${perda*0.7}litros ou em dinheiro cerca de R$${Math.round(perdaDinheiro*0.6)}.</p>
+            `
+        }
+        if (servidor == "Não" && valorTotalSensor > valorInstalacao) {
+            exibirOrcamento.innerHTML = 
+            `
+            <p>Conforme foi informado a sua produção de vinho mensal é de ${vinho} litros, e o seu lucro mensal é de R$${lucro}. A média mensal de perda de vinho causada por falta de controle de temperatura é cerda de 15%, o que para o senhor significa uma perda de aproximadamente ${perda} litros. Esses litros perdidos representam aproximadamente R$${Math.round(perdaDinheiro)}, por tanto seu lucro total poderia ser de R$${Math.round(semPerda)}.<br><br>
+            Para a inplementação dos nossos serviços o valor cobrado é de R$${valorTotalSensor+valorNuvem+valorManutencao}, onde o cliente paga pelos sensores, no seu caso sendo ${numeroSensores} sensores, pela manutenção e pelo serviço em nuvem.<br><br> 
+            Com a nossa solução o senhor pode reduzir em até 60% a suas perdas, o que representa aproximadamente ${perda*0.7}litros ou em dinheiro cerca de R$${Math.round(perdaDinheiro*0.6)}.</p>
+            `
+        }
+        if (servidor == "Sim" && valorTotalSensor < valorInstalacao) {
+            exibirOrcamento.innerHTML = 
+            `
+            <p>Conforme foi informado a sua produção de vinho mensal é de ${vinho} litros, e o seu lucro mensal é de R$${lucro}. A média mensal de perda de vinho causada por falta de controle de temperatura é cerda de 15%, o que para o senhor significa uma perda de aproximadamente ${perda} litros. Esses litros perdidos representam aproximadamente R$${Math.round(perdaDinheiro)}, por tanto seu lucro total poderia ser de R$${Math.round(semPerda)}.<br><br>
+            Para a inplementação dos nossos serviços o valor cobrado é de R$${valorInstalacao+valorTotalSensor+valorManutencao}, onde o cliente paga pelos sensores, no seu caso sendo ${numeroSensores} sensores, pela instalação e manutenção.<br><br> 
+            Com a nossa solução o senhor pode reduzir em até 60% a suas perdas, o que representa aproximadamente ${perda*0.7}litros ou em dinheiro cerca de R$${Math.round(perdaDinheiro*0.6)}.</p>
+            `
+        }
+        if (servidor == "Sim" && valorTotalSensor > valorInstalacao) {
+            exibirOrcamento.innerHTML = 
+            `
+            <p>Conforme foi informado a sua produção de vinho mensal é de ${vinho} litros, e o seu lucro mensal é de R$${lucro}. A média mensal de perda de vinho causada por falta de controle de temperatura é cerda de 15%, o que para o senhor significa uma perda de aproximadamente ${perda} litros. Esses litros perdidos representam aproximadamente R$${Math.round(perdaDinheiro)}, por tanto seu lucro total poderia ser de R$${Math.round(semPerda)}.<br><br>
+            Para a inplementação dos nossos serviços o valor cobrado é de R$${valorTotalSensor+valorManutencao}, onde o cliente paga pelos sensores, no seu caso sendo ${numeroSensores} sensores, e a manutenção.<br><br> 
+            Com a nossa solução o senhor pode reduzir em até 60% a suas perdas, o que representa aproximadamente ${perda*0.7}litros ou em dinheiro cerca de R$${Math.round(perdaDinheiro*0.6)}.</p>
+            `
+        }
+    }
+</script>
